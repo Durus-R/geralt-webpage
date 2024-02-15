@@ -8,9 +8,11 @@ jobs:
     if: '${{ github.event.pull_request.head.repo.full_name == github.repository }}'
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/setup-node@v4.0.2
+      - run: npm install -g yarn
       - uses: actions/checkout@v4
-      - run: sudo apt install nodejs20
-      - run: yarn install --frozen-lockfile && yarn build
+      - run: yarn install --frozen-lockfile
+      - run: yarn build
       - uses: FirebaseExtended/action-hosting-deploy@v0
         with:
           repoToken: '${{ secrets.GITHUB_TOKEN }}'

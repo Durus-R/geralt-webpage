@@ -1,5 +1,6 @@
 <template>
   <q-page class="column items-center justify-center">
+    <ChallengeV3 v-model="response" action="submit">
     <q-select v-model="select" :options="store.names" label="Please select" style="min-width: 300px"></q-select>
     <p style="margin: 30px">{{ count_text }}</p>
     <div class="row justify-around" style="margin: 40px">
@@ -8,11 +9,13 @@
       <q-btn color="red" :label="-1" :disable="select === null || is_null" @click="button_decrement" rounded></q-btn>
     </div>
     <q-btn color="dark" label="Clear" :disable="store.is_empty" @click="reset()"></q-btn>
+    </ChallengeV3>
   </q-page>
 </template>
 
 <script setup lang="ts">
 import { computed, ref } from 'vue';
+import {ChallengeV3} from 'vue-recaptcha';
 import { useCounterStore } from 'stores/counterstore';
 
 window.addEventListener('keydown', (e)=>{
@@ -24,6 +27,7 @@ window.addEventListener('keydown', (e)=>{
   }
 })
 
+const response=ref();
 const store = useCounterStore();
 
 if (store.is_empty) {

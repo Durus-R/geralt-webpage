@@ -1,24 +1,22 @@
 <template>
 
-  <ChallengeV3 v-model="response" action="submit">
   <q-page class="column items-center justify-center">
-    <q-select v-model="select" :options="store.names" label="Please select" style="min-width: 300px"></q-select>
+    <q-select v-model="select" :options="entries_names" label="Please select" style="min-width: 300px"></q-select>
     <p style="margin: 30px">{{ count_text }}</p>
     <div class="row justify-around" style="margin: 40px">
       <q-btn color="deep-orange" :label="button_text"
              :disable="select === null" @click="button_click" style="margin-right: 25px"></q-btn>
       <q-btn color="red" :label="-1" :disable="select === null || is_null" @click="button_decrement" rounded></q-btn>
     </div>
-    <q-btn color="dark" label="Clear" :disable="store.is_empty" @click="reset()"></q-btn>
 
   </q-page>
-  </ChallengeV3>
 </template>
 
 <script setup lang="ts">
-import { computed, ref } from 'vue';
-import {ChallengeV3} from 'vue-recaptcha';
+import { computed, onMounted, ref } from 'vue';
 import { useCounterStore } from 'stores/counterstore';
+import { useFirestore, useCollection} from 'vuefire';
+import { collection, addDoc} from 'firebase/firestore';
 
 window.addEventListener('keydown', (e)=>{
   console.log(e.key)
@@ -29,9 +27,27 @@ window.addEventListener('keydown', (e)=>{
   }
 })
 
+const fireStore = useFirestore();
 
 
-const response=ref();
+
+const entries = useCollection(collection(fireStore, 'people'));
+
+// run firebase firestore:delete --all-collections to delete all data
+onMounted(async () => {await addDoc(collection(fireStore, 'people'), {
+  name: 'Hello',
+});})
+
+const entries_names = computed(()=> {
+  let res = []
+  for (const e of entries.value) {
+    res.push(e.name)
+  }
+  return res;
+})
+
+console.log(entries.data)
+
 const store = useCounterStore();
 
 if (store.is_empty) {
@@ -84,8 +100,4 @@ function button_decrement() {
   store.decrement(select.value);
 }
 
-function reset() {
-  store.clear();
-  select.value = null;
-}
 </script>

@@ -5,8 +5,8 @@
     <p style="margin: 30px">{{ currentDoc?.count }}</p>
     <div class="row justify-around" style="margin: 40px">
       <q-btn color="deep-orange" :label="currentDoc?.text"
-             :disable="select === null"  style="margin-right: 25px"></q-btn>
-      <q-btn color="red" :label="-1" :disable="select === null || currentDoc?.count === 0"  rounded></q-btn>
+             :disable="select.value === ''"  style="margin-right: 25px"></q-btn>
+      <q-btn color="red" :label="-1" :disable="select.value === '' || currentDoc?.count === 0"  rounded></q-btn>
     </div>
 
   </q-page>
@@ -15,8 +15,8 @@
 <script setup lang="ts">
 import { computed, Ref, ref } from 'vue';
 import { useFirestore, useCollection, useDocument } from 'vuefire';
-import { collection, doc, query, where, getDocs} from 'firebase/firestore';
-import { computedAsync } from '@vueuse/core/index';
+import { collection, doc} from 'firebase/firestore';
+
 
 /*
 window.addEventListener('keydown', (e)=>{

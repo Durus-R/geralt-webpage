@@ -19,15 +19,16 @@ import { useFirestore, useCollection, useDocument } from 'vuefire';
 import { collection, updateDoc, doc} from 'firebase/firestore';
 
 
-/*
-window.addEventListener('keydown', (e)=>{
+
+document.onkeydown = (e)=>{
   console.log(e.key)
-  if (e.key=='End') {
-    button_click()
-  } else if (e.key=='Delete') {
+  if (e.key=='End' && select.value.value != '') {
+    button_increment()
+  } else if (e.key=='Delete' && select.value.value != ''
+      && currentDoc.value ? currentDoc.value.count > 0 : false ) {
     button_decrement()
   }
-})*/
+}
 
 const fireStore = useFirestore();
 

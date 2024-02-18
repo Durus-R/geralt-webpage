@@ -1,8 +1,9 @@
 import { initializeApp } from 'firebase/app';
-import { getFirestore } from 'firebase/firestore';
 import 'firebase/firestore'
 import { boot } from 'quasar/wrappers';
-import { VueFire } from 'vuefire';
+import { VueFire, VueFireAppCheck } from 'vuefire';
+import { ReCaptchaEnterpriseProvider } from 'firebase/app-check'
+
 
 
 const firebaseConfig = {
@@ -17,13 +18,18 @@ const firebaseConfig = {
 
 // Initialize Firebase
 const firebaseApp = initializeApp(firebaseConfig);
-const firestore = getFirestore(firebaseApp);
 //const analytics = getAnalytics(fb_app);
+
+const RecaptchaProvider = new ReCaptchaEnterpriseProvider('6LcQgXMpAAAAAHsOvQpUIRZ043YDb6d1l6xkTSvY')
 
 export default boot(async ({ app}) => {
   app.use(VueFire, {
     firebaseApp,
-    modules: [],
+    modules: [VueFireAppCheck({
+      provider: RecaptchaProvider,
+      debug: process.env.DEBUGGING,
+      isTokenAutoRefreshEnabled: true,
+    })],
   })})
 
-export { firebaseApp, firestore }
+export { firebaseApp }

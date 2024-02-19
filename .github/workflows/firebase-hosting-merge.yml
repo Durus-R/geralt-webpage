@@ -19,7 +19,7 @@ jobs:
         with:
           args: deploy --only hosting,firestore:rules
         env:
-          GCP_SA_KEY: "${{ secrets.FIREBASE_SERVICE_ACCOUNT_GERALT_COUNTER }}"
+          GCP_SA_TOKEN: "${{ secrets.FIREBASE_SERVICE_ACCOUNT_GERALT_COUNTER }}"
           PROJECT_ID: geralt-counter
-
-
+          
+          

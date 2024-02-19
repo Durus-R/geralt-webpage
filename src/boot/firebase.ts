@@ -20,7 +20,7 @@ const firebaseConfig = {
 const firebaseApp = initializeApp(firebaseConfig);
 //const analytics = getAnalytics(fb_app);
 
-const RecaptchaProvider = new ReCaptchaEnterpriseProvider('6LcQgXMpAAAAAHsOvQpUIRZ043YDb6d1l6xkTSvY')
+const RecaptchaProvider = new ReCaptchaEnterpriseProvider('6LeSi3cpAAAAABfvbjBMj_XWvlXjAnnKuODkeLJe')
 
 export default boot(async ({ app}) => {
   app.use(VueFire, {

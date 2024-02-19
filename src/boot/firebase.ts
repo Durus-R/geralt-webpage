@@ -1,9 +1,9 @@
 import { initializeApp } from 'firebase/app';
 import 'firebase/firestore'
 import { boot } from 'quasar/wrappers';
-import { VueFire, VueFireAppCheck } from 'vuefire';
+import { VueFire, VueFireAppCheck, VueFireModule } from 'vuefire';
 import { ReCaptchaEnterpriseProvider } from 'firebase/app-check'
-
+import { Cookies } from 'quasar';
 
 
 const firebaseConfig = {
@@ -18,18 +18,24 @@ const firebaseConfig = {
 
 // Initialize Firebase
 const firebaseApp = initializeApp(firebaseConfig);
-//const analytics = getAnalytics(fb_app);
+
+const vueFireModules :  VueFireModule[] = []
+
+
 
 const RecaptchaProvider = new ReCaptchaEnterpriseProvider('6LeSi3cpAAAAABfvbjBMj_XWvlXjAnnKuODkeLJe')
 
 export default boot(async ({ app}) => {
+  if (Cookies.has('site_cookies_enabled')) {
+  vueFireModules.push(VueFireAppCheck({
+    provider: RecaptchaProvider,
+    debug: process.env.DEBUGGING,
+    isTokenAutoRefreshEnabled: true,
+  }))}
+
   app.use(VueFire, {
     firebaseApp,
-    modules: [VueFireAppCheck({
-      provider: RecaptchaProvider,
-      debug: process.env.DEBUGGING,
-      isTokenAutoRefreshEnabled: true,
-    })],
+    modules: vueFireModules,
   })})
 
 export { firebaseApp }

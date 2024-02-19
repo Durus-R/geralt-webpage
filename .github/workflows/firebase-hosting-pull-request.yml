@@ -9,7 +9,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/setup-node@v4.0.2
-      - run: npm install -g yarn firebase-tools
+      - run: npm install -g yarn
       - uses: actions/checkout@v4
       - run: yarn install --frozen-lockfile
       - run: yarn build

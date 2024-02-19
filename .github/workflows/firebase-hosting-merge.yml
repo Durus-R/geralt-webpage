@@ -15,9 +15,11 @@ jobs:
       - uses: actions/checkout@v4
       - run: yarn install --frozen-lockfile
       - run: yarn build
-      - uses: FirebaseExtended/action-hosting-deploy@v0
+      - uses: w9jds/firebase-action@v13.3.0
         with:
-          repoToken: '${{ secrets.GITHUB_TOKEN }}'
-          firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_GERALT_COUNTER }}'
-          channelId: live
-          projectId: geralt-counter
+          args: deploy --only hosting,firestore:rules
+        env:
+          GCP_SA_TOKEN: "${{ secrets.FIREBASE_SERVICE_ACCOUNT_GERALT_COUNTER }}"
+          PROJECT_ID: geralt-counter
+          
+          

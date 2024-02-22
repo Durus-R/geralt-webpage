@@ -22,7 +22,7 @@
 
       <q-card-actions align="right" class="text-primary">
         <q-btn flat label="Cancel" v-close-popup />
-        <q-btn flat label="Save" v-close-popup @click="close_enter_dialog"/>
+        <q-btn flat label="Save" v-close-popup @click="close_enter_dialog" />
       </q-card-actions>
     </q-card>
   </q-dialog>
@@ -44,7 +44,7 @@ document.onkeydown = (e) => {
   }
 };
 
-const update_name = ref('')
+const update_name = ref('');
 
 const edit_dialog = ref(false);
 
@@ -71,7 +71,6 @@ interface option {
 }
 
 
-
 const select = ref({
   label: '',
   value: ''
@@ -86,12 +85,12 @@ const currentDoc = useDocument(currentDocSource);
 
 async function close_enter_dialog() {
   if (currentDocSource.value === null) {
-    return
+    return;
   }
-  select.value.label = update_name.value
+  select.value.label = update_name.value;
   await updateDoc(currentDocSource.value, {
     name: update_name.value
-  })
+  });
 }
 
 async function button_add(addition: number) {

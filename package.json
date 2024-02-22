@@ -19,6 +19,7 @@
     "@unhead/vue": "^1.8.10",
     "@vueuse/core": "^10.7.2",
     "firebase": "^10.8.0",
+    "pinia": "^2.1.7",
     "quasar": "^2.8.0",
     "unhead": "^1.8.10",
     "vue": "^3.2.29",

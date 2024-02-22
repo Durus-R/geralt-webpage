@@ -22,7 +22,7 @@ h2 {
                 label="Ich habe diese Informationen zur Kenntnis genommen und verstanden.">
 
     </q-checkbox>
-    <q-btn :disable="!checked" label="Akzeptieren" @click="enableCookies" />
+    <q-btn color="blue" :disable="!checked" label="Akzeptieren" @click="enableCookies" />
 
   </div>
 </template>
